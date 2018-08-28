@@ -28,6 +28,20 @@ vagrant up
 vagrant ssh
 ```
 
+### 開発パッケージのインストール
++ aws-sam-cliのインストール
++ .NET SDKのインストール
+
+```bash
+pip install --user aws-sam-cli
+sudo rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm
+sudo yum update
+sudo yum install dotnet-sdk-2.1 -y
+sudo rpm --import "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
+sudo su -c 'curl https://download.mono-project.com/repo/centos7-stable.repo | tee /etc/yum.repos.d/mono-centos7-stable.repo'
+sudo yum install mono-devel -y
+```
+
 ### ドキュメント環境構築
 ```bash
 cd /vagrant
@@ -56,18 +70,10 @@ gradle livereload
 ```
 [http://192.168.33.10:35729/](http://192.168.33.10:35729/)に接続して確認する
 
-### 開発パッケージのインストール
-+ aws-sam-cliのインストール
-+ .NET SDKのインストール
-
-```bash
-pip install --user aws-sam-cli
-sudo rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm
-sudo yum update
-sudo yum install dotnet-sdk-2.1 -y
-sudo rpm --import "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
-sudo su -c 'curl https://download.mono-project.com/repo/centos7-stable.repo | tee /etc/yum.repos.d/mono-centos7-stable.repo'
-sudo yum install mono-devel -y
+### パイプラインの構築
+```
+cd /vagrant/ops/code_pipline
+./create_stack.sh 
 ```
 
 **[⬆ back to top](#構成)**
@@ -98,7 +104,7 @@ aws s3 mb s3://dotnet-hands-on
 ````bash
 cd /vagrant/sam-app
 sam validate
-sh build.sh --target=Package
+dotnet publish
 sam package --template-file template.yaml --s3-bucket dotnet-hands-on --output-template-file packaged.yaml
 sam deploy --template-file packaged.yaml --stack-name dotnet-hands-on-development --capabilities CAPABILITY_IAM
 ````
