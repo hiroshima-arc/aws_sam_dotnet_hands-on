@@ -48,6 +48,13 @@ sudo yum install dotnet-sdk-2.1 -y
 **[⬆ back to top](#構成)**
 
 ## 開発
+### アプリケーションの作成
+```bash
+cd /vagrant
+sam init --runtime dotnet
+cd sam-app
+```
+
 **[⬆ back to top](#構成)**
 
 # 参照 #
