@@ -116,6 +116,18 @@ aws cloudformation describe-stacks --stack-name dotnet-hands-on-development --qu
 **[⬆ back to top](#構成)**
 
 ## 運用
+### スタックの削除
+```bash
+aws cloudformation delete-stack --stack-name dotnet-handson-development
+aws cloudformation delete-stack --stack-name dotnet-handson-production
+aws cloudformation delete-stack --stack-name dotnet-handson-pipline
+
+```
+### S３バケットの削除
+```bash
+aws s3 rb s3://dotnet-handson --force
+```
+
 **[⬆ back to top](#構成)**
 
 ## 開発
