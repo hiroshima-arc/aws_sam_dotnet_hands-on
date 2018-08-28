@@ -121,11 +121,39 @@ aws cloudformation describe-stacks --stack-name dotnet-hands-on-development --qu
 aws cloudformation delete-stack --stack-name dotnet-handson-development
 aws cloudformation delete-stack --stack-name dotnet-handson-production
 aws cloudformation delete-stack --stack-name dotnet-handson-pipline
-
 ```
 ### S３バケットの削除
 ```bash
 aws s3 rb s3://dotnet-handson --force
+```
+
+### git-secretsの設定
+インストール
+```bash
+cd /home/vagrant
+git clone https://github.com/awslabs/git-secrets.git
+cd git-secrets/
+make install
+cd ..
+rm -rf git-secrets/
+```
+既存プロジェクトにフックを設定
+```bash
+cd /vagrant
+git secrets --install
+```
+拒否条件を設定
+```bash
+git secrets --register-aws --global
+```
+レポジトリをスキャンする
+```bash
+cd /vagrant
+git secrets --scan -r 
+```
+許可ルールを追加する
+```bash
+git config --add secrets.allowed sam-app/event_file.json
 ```
 
 **[⬆ back to top](#構成)**
@@ -154,4 +182,5 @@ sam local start-api --host 0.0.0.0
 # 参照 #
 + [.NET Tutorial - Hello World in 10 minute](https://www.microsoft.com/net/learn/get-started-with-dotnet-tutorial#install)
 + [Mono](https://www.mono-project.com/download/preview/#download-lin-centos)
-+ [図入りのAsciiDoc記述からPDFを生成する環境をGradleで簡単に用意する](https://qiita.com/tokumoto/items/d37ab3de5bdbee307769) 
++ [図入りのAsciiDoc記述からPDFを生成する環境をGradleで簡単に用意する](https://qiita.com/tokumoto/items/d37ab3de5bdbee307769)
++ [クラウド破産しないように git-secrets を使う](https://qiita.com/pottava/items/4c602c97aacf10c058f1)   
