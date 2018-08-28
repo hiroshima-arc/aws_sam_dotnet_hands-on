@@ -28,6 +28,17 @@ vagrant up
 vagrant ssh
 ```
 
+### 開発パッケージのインストール
++ aws-sam-cliのインストール
++ .NET SDKのインストール
+
+```bash
+pip install --user aws-sam-cli
+sudo rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm
+sudo yum update
+sudo yum install dotnet-sdk-2.1 -y
+```
+
 **[⬆ back to top](#構成)**
 
 ## 配置
@@ -40,3 +51,4 @@ vagrant ssh
 **[⬆ back to top](#構成)**
 
 # 参照 #
++ [.NET Tutorial - Hello World in 10 minute](https://www.microsoft.com/net/learn/get-started-with-dotnet-tutorial#install)
