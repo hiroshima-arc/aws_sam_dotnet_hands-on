@@ -69,6 +69,13 @@ sam local start-api --host 0.0.0.0
 ```
 [http://192.168.33.10:3000/hello](http://192.168.33.10:3000/hello)に接続して確認する
 
+### コードカバレッジのセットアップ
+```bash
+cd /vagrant/sam-app
+cd tools
+mono nuget.exe install OpenCover
+```
+
 **[⬆ back to top](#構成)**
 
 # 参照 #
