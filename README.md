@@ -37,6 +37,9 @@ pip install --user aws-sam-cli
 sudo rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm
 sudo yum update
 sudo yum install dotnet-sdk-2.1 -y
+sudo rpm --import "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
+sudo su -c 'curl https://download.mono-project.com/repo/centos7-stable.repo | tee /etc/yum.repos.d/mono-centos7-stable.repo'
+sudo yum install mono-devel -y
 ```
 
 **[⬆ back to top](#構成)**
@@ -55,7 +58,19 @@ sam init --runtime dotnet
 cd sam-app
 ```
 
+### ローカルでテストする
+```bash
+cd /vagrant/sam-app
+sh build.sh --target=Package
+dotnet test test/HelloWorld.Test
+sam local generate-event api > event_file.json
+sam local invoke HelloWorldFunction --event event_file.json
+sam local start-api --host 0.0.0.0
+```
+[http://192.168.33.10:3000/hello](http://192.168.33.10:3000/hello)に接続して確認する
+
 **[⬆ back to top](#構成)**
 
 # 参照 #
 + [.NET Tutorial - Hello World in 10 minute](https://www.microsoft.com/net/learn/get-started-with-dotnet-tutorial#install)
++ [Mono](https://www.mono-project.com/download/preview/#download-lin-centos)
