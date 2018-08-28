@@ -3,3 +3,4 @@
 .gradle
 .asciidoctor
 .env
+packaged.yaml
