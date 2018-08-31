@@ -40,7 +40,7 @@ namespace HelloWorld.Tests
             string location = GetCallingIP().Result;
             Dictionary<string, string> body = new Dictionary<string, string>
             {
-                { "message", "hello world" },
+                { "message", "Hello .Net lambda world" },
                 { "location", location },
             };
 
@@ -48,7 +48,10 @@ namespace HelloWorld.Tests
             {
                 Body = JsonConvert.SerializeObject(body),
                 StatusCode = 200,
-                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+                Headers = new Dictionary<string, string> {
+                    {"Content-Type", "application/json"},
+                    { "Access-Control-Allow-Origin", "*" }
+                }
             };
 
             var function = new Function();
